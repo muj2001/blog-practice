@@ -1,0 +1,23 @@
+<!-- app/views/sessions/new.html.erb -->
+
+<h2>Login</h2>
+<hr>
+<%= form_with url: "/login", data: { turbo: false } do |form| %>
+  <div>
+    <%= form.label :email %>
+    <%= form.text_field :email, required: true %>
+  </div>
+  <hr>
+  <div>
+    <%= form.label :password %>
+    <%= form.password_field :password, required: true %>
+  </div>
+  <hr>
+  <div>
+    <%= form.submit 'Log In' %>
+  </div>
+  <hr>
+<% end %>
+<% if flash[:alert]%>
+    <div><%= flash[:alert] %></div>
+<% end %>

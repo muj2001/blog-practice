@@ -4,9 +4,9 @@ Rails.application.routes.draw do
 
   # Routes for user sign up, login, and logout
   resources :users, only: [ :new, :create ] # Sign up
-  get "login", to: "session#new"
-  post "login", to: "session#create"
-  delete "logout", to: "session#destroy"
+  get "login", to: "sessions#new"
+  post "login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy", as: :logout
 
   # Routes for posts, categories, and comments
   resources :posts
