@@ -1,0 +1,7 @@
+<p>
+  <%= form_with url: post_comments_path(@post), method: :post do |form| %>
+    <strong>New Comment</strong>:
+    <%= form.text_field :comment_body, required: true %>
+    <%= form.submit 'Post' %>
+  <% end %>
+</p>

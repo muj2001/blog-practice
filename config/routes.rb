@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   # Routes for posts, categories, and comments
   resources :posts
   resources :categories
-  resources :comments, only: [ :create, :destroy ]
+  resources :posts do
+    resources :comments, only: [ :create, :destroy ]
+  end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
@@ -23,4 +25,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # Rerouting unknown routes to route
+  get "*path" => redirect("/")
 end
