@@ -2,7 +2,7 @@
   <div>
     <p><strong><%= post.title %></strong></p>
     <p><em>Category:</em> <%= post.category.name %></p>
-    <p><%= post.body %></p>
+    <%= link_to "Open", post %>
   </div>
   <hr>
 <% end %>
