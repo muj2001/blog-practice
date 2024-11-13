@@ -1,0 +1,8 @@
+<% @posts.each do |post| %>
+  <div>
+    <p><strong><%= post.title %></strong></p>
+    <p><em>Category:</em> <%= post.category.name %></p>
+    <p><%= post.body %></p>
+  </div>
+  <hr>
+<% end %>
