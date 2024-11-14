@@ -1,55 +1,84 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
-
-# Create Categories
-categories = [ 'Technology', 'Health', 'Lifestyle', 'Business', 'Education' ]
-categories.each do |category|
-  Category.create!(name: category)
-end
+# db/seeds.rb
 
 # Create Users
-users = [
-  { name: 'John Doe', email: 'john@example.com', password: 'password123', password_confirmation: 'password123' },
-  { name: 'Jane Smith', email: 'jane@example.com', password: 'password123', password_confirmation: 'password123' },
-  { name: 'Alice Johnson', email: 'alice@example.com', password: 'password123', password_confirmation: 'password123' },
-  { name: 'Bob Brown', email: 'bob@example.com', password: 'password123', password_confirmation: 'password123' }
-]
+users = User.create!([
+  { name: "Alice Smith", email: "alice@example.com", password: "password123" },
+  { name: "Bob Jones", email: "bob@example.com", password: "password123" },
+  { name: "Charlie Brown", email: "charlie@example.com", password: "password123" }
+])
 
-users.each do |user|
-  User.create!(user)
-end
+p "Seeded till Users."
 
-# Create Posts
-users.each_with_index do |user, index|
-  category = Category.all.sample  # Select a random category
-  Post.create!(
-    title: "Post Title #{index + 1}",
-    body: "This is the content of post #{index + 1}. It belongs to the #{category.name} category.",
-    user_id: User.find_by(email: user[:email]).id,
-    category_id: category.id
-  )
-end
+# Create Categories
+categories = Category.create!([
+  { name: "Technology" },
+  { name: "Health" },
+  { name: "Lifestyle" },
+  { name: "Education" },
+  { name: "Travel" }
+])
 
-# Create Comments
-posts = Post.all
-users = User.all
+p "Seeded till Categories."
 
-posts.each do |post|
-  # Randomly assign users to comment on posts
-  rand(1..3).times do
-    Comment.create!(
-      body: "This is a comment on #{post.title}.",
-      user_id: users.sample.id,
-      post_id: post.id
-    )
-  end
-end
+# Create Posts with Sections and assign Categories
+posts = Post.create!([
+  {
+    title: "Exploring the Future of AI",
+    user: users.first,
+    sections: [
+      Section.new(title: "Introduction", body: "Artificial intelligence is evolving quickly."),
+      Section.new(title: "Current Trends", body: "AI is impacting various industries.")
+    ]
+  },
+  {
+    title: "Benefits of a Healthy Lifestyle",
+    user: users.second,
+    sections: [
+      Section.new(title: "Why Health Matters", body: "Living a healthy lifestyle is essential."),
+      Section.new(title: "Practical Tips", body: "Exercise, diet, and sleep all play a role.")
+    ]
+  },
+  {
+    title: "Top Travel Destinations for 2024",
+    user: users.third,
+    sections: [
+      Section.new(title: "Europe", body: "Europe has a rich history and beautiful landscapes."),
+      Section.new(title: "Asia", body: "Asia offers diverse cultures and experiences.")
+    ]
+  }
+])
 
-puts "Seed data created successfully!"
+p "Seeded till posts."
+
+# Associate Categories with Posts
+posts[0].categories << [ categories[0], categories[3] ]   # "Exploring the Future of AI" linked with "Technology" and "Education"
+posts[1].categories << [ categories[1], categories[2] ]   # "Benefits of a Healthy Lifestyle" linked with "Health" and "Lifestyle"
+posts[2].categories << [ categories[4] ]                  # "Top Travel Destinations for 2024" linked with "Travel"
+
+p "Seeded till categories and posts"
+
+# Create Comments on Posts and Sections
+comments = Comment.create!([
+  {
+    body: "Great insights! I can't wait to see what the future holds.",
+    commenter: users.second,
+    commentable: posts.first
+  },
+  {
+    body: "This is very informative. Thanks for sharing!",
+    commenter: users.third,
+    commentable: posts.first
+  },
+  {
+    body: "I agree with this point, especially about the importance of health.",
+    commenter: users.first,
+    commentable: posts.second
+  },
+  {
+    body: "I love this blogger's posts.",
+    commenter: users.first,
+    commentable: users.second
+  }
+])
+
+puts "Seed data successfully created with posts, categories, and associations!"

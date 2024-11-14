@@ -1,8 +1,8 @@
 class Post < ApplicationRecord
-  validates :title, presence: true, length: { minimum: 5, maximum: 100 }
-  validates :body, presence: true, length: { minimum: 10, maximum: 2000 }
+  validates :title, presence: true, length: { minimum: 5, maximum: 50 }
 
   belongs_to :user
-  belongs_to :category
-  has_many :comments, dependent: :destroy
+  has_and_belongs_to_many :categories
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :sections, dependent: :destroy
 end
