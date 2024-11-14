@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
+  root "public#main"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  root "posts#index"
+  # root "posts#index"
 
   # Routes for user sign up, login, and logout
-  resources :users, only: [ :new, :create ] # Sign up
+  resources :users, only: [ :index, :new, :create, :show ] # Sign up, and view user
   get "login", to: "sessions#new"
   post "login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy", as: :logout
