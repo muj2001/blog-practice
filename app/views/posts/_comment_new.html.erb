@@ -1,3 +1,6 @@
+<% if flash[:alert] %>
+ <strong><%= flash[:alert] %></strong>
+<% end %>
 <p>
   <%= form_with url: post_comments_path(@post), method: :post do |form| %>
     <strong>New Comment</strong>:

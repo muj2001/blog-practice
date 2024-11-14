@@ -2,8 +2,11 @@ class CommentsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     if session[:user_id]
+      p "HERE ----------------------------"
       @comment = @post.comments.build(body: comment_params[:comment_body])
+      "HERE ------------------------"
       @comment.user_id = session[:user_id]
+      p "---------------"
       if @comment.save
         p "Comment added!"
         redirect_to post_path(@post)

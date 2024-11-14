@@ -4,21 +4,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    p "----------------------------- #{params[:email]}"
     @user = User.find_by(email: params[:email])
-    p "----------------------------- #{@user}"
     if @user&.authenticate(params[:password])
-      p @user.id
       session[:user_id] = @user.id
-      redirect_to root_path, notice: "Logged in successfully!"
+      redirect_to root_path, log_success: "Logged in successfully!"
     else
-      flash.now[:alert] = "Invalid email or password" # FLASH MESSAGES WORK WITHOUT TURBO
+      flash.now[:notify] = "Invalid email or password" # FLASH MESSAGES WORK WITHOUT TURBO
       render :new
     end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path, notice: "Logged out successfully!"
+    redirect_to root_path, log_success: "Logged out successfully!"
   end
 end

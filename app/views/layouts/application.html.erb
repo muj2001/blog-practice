@@ -31,17 +31,15 @@
         <%= form_with url: logout_path, method: :delete do %>
           <%= submit_tag "Logout"%>
         <% end %>
+        <p><strong>Logged in as <%= get_user.name %></strong></p>
+
       <% end %>
     </div>
 
     <hr>
 
-    <% if flash[:notice] %>
-      <div><%= flash[:notice] %></div>
-      <hr>
-    <% end %>
-    <% if flash[:alert] %>
-      <div><%= flash[:alert] %></div>
+    <% if flash[:log_success] %>
+      <div><%= flash[:log_success] %></div>
       <hr>
     <% end %>
     <%= yield %>
