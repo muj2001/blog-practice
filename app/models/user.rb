@@ -8,6 +8,6 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :posts, dependent: :destroy
-  has_many :comments, dependent: :destroy
-  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :authored_comments, class_name: "Comment", foreign_key: "commenter_id", dependent: :destroy
+  has_many :received_comments, class_name: "Comment", as: :commentable, dependent: :destroy
 end

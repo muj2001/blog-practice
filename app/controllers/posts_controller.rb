@@ -22,7 +22,6 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    p "#{@post.title} --------------------"
   end
 
   def edit

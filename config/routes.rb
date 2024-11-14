@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get "categories/index"
+  get "categories/new"
+  get "categories/create"
+  get "categories/show"
+  get "categories/edit"
+  get "categories/update"
+  get "categories/destroy"
   root "public#main"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # root "posts#index"

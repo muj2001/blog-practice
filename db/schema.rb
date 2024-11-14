@@ -21,7 +21,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_14_152527) do
   create_table "categories_posts", id: false, force: :cascade do |t|
     t.integer "category_id", null: false
     t.integer "post_id", null: false
-    t.index ["category_id", "post_id"], name: "index_categories_posts_on_category_id_and_post_id", unique: true
     t.index ["category_id"], name: "index_categories_posts_on_category_id"
     t.index ["post_id"], name: "index_categories_posts_on_post_id"
   end
@@ -29,8 +28,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_14_152527) do
   create_table "comments", force: :cascade do |t|
     t.text "body"
     t.integer "commenter_id", null: false
-    t.string "commentable_type", null: false
-    t.integer "commentable_id", null: false
+    t.string "commentable_type"
+    t.integer "commentable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
@@ -63,6 +62,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_14_152527) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "categories_posts", "categories"
+  add_foreign_key "categories_posts", "posts"
   add_foreign_key "comments", "users", column: "commenter_id"
   add_foreign_key "posts", "users"
   add_foreign_key "sections", "posts"
