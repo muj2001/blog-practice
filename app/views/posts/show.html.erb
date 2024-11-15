@@ -1,5 +1,10 @@
 <%= render "post" %>
 
+<% @post.sections.each_with_index do |section, index| %>
+  <h3><%= index+1 %>. <%= section.title %></h3>
+  <p><%= section.body %></p>
+<% end %>
+
 <% if @post.comments.present? %>
   <hr>
   <h3>Comments</h3>
