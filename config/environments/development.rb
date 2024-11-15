@@ -1,5 +1,4 @@
 require "active_support/core_ext/integer/time"
-require "app_secrets"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -35,8 +34,22 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
+  config.action_mailer.delivery_method = :smtp
+
+  # config.action_mailer.smtp_settings = {
+  #   address:              "smtp.gmail.com",
+  #   port:                 587,
+  #   domain:               "localhost",
+  #   user_name:            APP_PASSWORD,
+  #   password:             EMAIL,
+  #   authentication:       "plain",
+  #   enable_starttls_auto: true,
+  #   open_timeout:         5,
+  #   read_timeout:         5
+  # }
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
 
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
