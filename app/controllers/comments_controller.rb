@@ -1,24 +1,45 @@
 class CommentsController < ApplicationController
+  before_action :set_commentable
+
   def create
-    @post = Post.find(params[:post_id])
     if session[:user_id]
-      p "HERE ----------------------------"
-      @comment = @post.comments.build(body: comment_params[:comment_body])
-      "HERE ------------------------"
-      @comment.user_id = session[:user_id]
-      p "---------------"
+      @comment = @commentable.comments.build(comment_params)
+      @comment.commenter_id = session[:user_id]
+      p "-----------Comment-----------"
+      p @comment
       if @comment.save
-        p "Comment added!"
-        redirect_to post_path(@post)
+        redirect_to @commentable
       else
-        redirect_to post_path(@post), alert: "Could not post comment!"
+        redirect_to @commentable, alert: "Comment not posted!"
       end
     else
-      redirect_to post_path(@post), alert: "You need to login to be able to comment."
+        redirect_to post_path(@post), alert: "You need to login to be able to comment."
+    end
+    #     @post = Post.find(params[:post_id])
+    #     if session[:user_id]
+    #       @comment = @post.comments.build(body: comment_params[:comment_body])
+    #       @comment.commenter_id = session[:user_id]
+    #       if @comment.save
+    #         redirect_to post_path(@post)
+    #       else
+    #         redirect_to post_path(@post), alert: "Could not post comment!"
+    #       end
+    #     else
+    #       redirect_to post_path(@post), alert: "You need to login to be able to comment."
+    #     end
+  end
+
+  def set_commentable
+    if params[:post_id]
+      @commentable = Post.find(params[:post_id])
+    elsif params[:user_id]
+      @commentable = User.find(params[:user_id])
+    else
+      head :bad_request
     end
   end
 
   def comment_params
-    params.permit(:comment_body)
+    params.require(:comment).permit(:body)
   end
 end

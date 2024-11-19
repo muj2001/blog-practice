@@ -1,0 +1,6 @@
+<h3>New Category</h3>
+<%= form_with model: @category, local: true do |form| %>
+  <%= form.label :name %>:
+  <%= form.text_field :name %>
+  <%= form.submit "Add" %>
+<% end %>

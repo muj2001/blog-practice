@@ -1,19 +1,29 @@
 Rails.application.routes.draw do
+  get "sections/create"
+  get "sections/edit"
+  get "sections/update"
+  get "sections/destroy"
   root "public#main"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  # root "posts#index"
 
   # Routes for user sign up, login, and logout
-  resources :users, only: [ :index, :new, :create, :show ] # Sign up, and view user
+  # resources :users, only: [ :index, :new, :create, :show ] # Sign up, and view user
   get "login", to: "sessions#new"
   post "login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy", as: :logout
 
+  # Subscription Route
+  post "users/:id/subscribe/", to: "users#sub", as: :subscription
+
   # Routes for posts, categories, and comments
-  resources :posts
   resources :categories
+
+  resources :users do
+    resources :comments
+  end
+
   resources :posts do
-    resources :comments, only: [ :create, :destroy ]
+    resources :comments
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -23,9 +33,6 @@ Rails.application.routes.draw do
   # Render dynamic PWA files from app/views/pwa/*
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-
-  # Defines the root path route ("/")
-  # root "posts#index"
 
   # Rerouting unknown routes to route
   get "*path" => redirect("/")

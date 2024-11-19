@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_14_152527) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_15_142259) do
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_14_152527) do
   create_table "categories_posts", id: false, force: :cascade do |t|
     t.integer "category_id", null: false
     t.integer "post_id", null: false
+    t.index ["category_id", "post_id"], name: "index_categories_posts_on_category_id_and_post_id", unique: true
     t.index ["category_id"], name: "index_categories_posts_on_category_id"
     t.index ["post_id"], name: "index_categories_posts_on_post_id"
   end
@@ -53,6 +54,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_14_152527) do
     t.index ["post_id"], name: "index_sections_on_post_id"
   end
 
+  create_table "subscriptions", id: false, force: :cascade do |t|
+    t.integer "subscriber_id", null: false
+    t.integer "subscribed_id", null: false
+    t.index ["subscribed_id"], name: "index_subscriptions_on_subscribed_id"
+    t.index ["subscriber_id"], name: "index_subscriptions_on_subscriber_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -67,4 +75,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_14_152527) do
   add_foreign_key "comments", "users", column: "commenter_id"
   add_foreign_key "posts", "users"
   add_foreign_key "sections", "posts"
+  add_foreign_key "subscriptions", "users", column: "subscribed_id"
+  add_foreign_key "subscriptions", "users", column: "subscriber_id"
 end
