@@ -17,6 +17,7 @@
  :root {
   --primary-color: #ff1481;
   --primary-color-hover: #bf0431;
+  --secondary-color: #272727;
  }
 
  .oswald-font {
@@ -33,4 +34,21 @@
 
  .button-primary:hover {
   background-color: var(--primary-color-hover);
+ }
+
+ .comments-title {
+  background-color: var(--primary-color);
+ }
+
+ .comment {
+  background-color: var(--secondary-color);
+ }
+
+ .bg-secondary {
+  background-color: var(--secondary-color);
+ }
+
+ .border-secondary {
+  border-color: var(--secondary-color);
+  border-width: 1px;
  }

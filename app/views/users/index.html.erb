@@ -1,3 +1,6 @@
-<h2>Bloggers</h2>
-<hr>
-<%= render partial: "user", collection: @users %>
+<!-- <div class="flex flex-wrap py-12 justify-evenly gap-y-8"> -->
+<div class="px-6 flex justify-center">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 py-12" >
+    <%= render partial: "user", collection: @users %>
+  </div>
+</div>

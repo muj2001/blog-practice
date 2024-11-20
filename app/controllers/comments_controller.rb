@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
         redirect_to @commentable, alert: "Comment not posted!"
       end
     else
-        redirect_to post_path(@post), alert: "You need to login to be able to comment."
+        redirect_to login_path, alert: "You need to login to be able to comment."
     end
     #     @post = Post.find(params[:post_id])
     #     if session[:user_id]
