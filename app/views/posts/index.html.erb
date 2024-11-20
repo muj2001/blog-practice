@@ -1,3 +1,6 @@
+
+<%= render partial: "filter", locals: { categories: @categories }%>
+
 <ul role="list" class="divide-y divide-gray-100">
   <%= render partial: "post_bar", collection: @posts, as: :post %>
 </ul>

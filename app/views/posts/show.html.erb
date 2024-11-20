@@ -5,7 +5,5 @@
   <p><%= section.body %></p>
 <% end %>
 
-<hr>
-<h3>Comments</h3>
-<%= render partial: "comments/comment", collection: @post.comments %>
-<%= render partial: "comments/comment_new", locals: { commentable: @post } %>
+
+<%= render partial: "comments/comments", locals: { commentable: @post, comments: @post.comments } %>

@@ -4,7 +4,7 @@
 <div class="py-2">
   <%= form_with model: [commentable, Comment.new], method: :post, class: "flex items-center gap-x-2" do |form| %>
     <p>
-      <strong>New Comment</strong>:
+      <strong><%= get_user.name %></strong>:
     </p>
     <div class="flex rounded-3xl overflow-hidden border-secondary">
       <p>

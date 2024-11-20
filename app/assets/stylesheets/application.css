@@ -18,6 +18,7 @@
   --primary-color: #ff1481;
   --primary-color-hover: #bf0431;
   --secondary-color: #272727;
+  --secondary-color-hover: #676767;
  }
 
  .oswald-font {
@@ -52,3 +53,8 @@
   border-color: var(--secondary-color);
   border-width: 1px;
  }
+
+ .bg-secondary:hover {
+  background-color: var(--secondary-color-hover);
+ }
+
