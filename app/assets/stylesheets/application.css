@@ -13,3 +13,24 @@
  *= require_tree .
  *= require_self
  */
+
+ :root {
+  --primary-color: #ff1481;
+  --primary-color-hover: #bf0431;
+ }
+
+ .oswald-font {
+  font-family: "Oswald", sans-serif;
+ }
+
+ .title-1 {
+  font-weight: 900;
+ }
+
+ .button-primary {
+  background-color: var(--primary-color);
+ }
+
+ .button-primary:hover {
+  background-color: var(--primary-color-hover);
+ }

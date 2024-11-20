@@ -1,4 +1,4 @@
-<h2>Categories</h2>
-<hr>
-<%= render partial: "category", collection: @categories %>
-<%= render partial: "new" %>
+<ul role="list" class="divide-y divide-gray-100">
+  <%= render partial: "category", collection: @categories %>
+  <%= render partial: "new" %>
+</ul>
