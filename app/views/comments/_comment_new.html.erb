@@ -1,11 +1,17 @@
 <% if flash[:alert] %>
  <strong><%= flash[:alert] %></strong>
 <% end %>
-<p>
-  <%= form_with model: [commentable, Comment.new], method: :post do |form| %>
-    <strong>New Comment</strong>:
-    <%= form.text_field :body, required: true %>
-    <input name="comment_type" type="hidden" value="<%= commentable.class %>">
-    <%= form.submit 'Post' %>
+<div class="py-2">
+  <%= form_with model: [commentable, Comment.new], method: :post, class: "flex items-center gap-x-2" do |form| %>
+    <p>
+      <strong><%= get_user.name %></strong>:
+    </p>
+    <div class="flex rounded-3xl overflow-hidden border-secondary">
+      <p>
+        <%= form.text_field :body, required: true, class: "border-none" %>
+      </p>
+      <input name="comment_type" type="hidden" value="<%= commentable.class %>">
+      <%= form.submit 'Post', class: "bg-secondary py-2 px-4 text-white" %>
+    </div>
   <% end %>
-</p>
+</div>

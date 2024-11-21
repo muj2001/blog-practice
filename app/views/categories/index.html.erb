@@ -1,4 +1,11 @@
-<h2>Categories</h2>
-<hr>
-<%= render partial: "category", collection: @categories %>
-<%= render partial: "new" %>
+<div class="py-6 antialiased">
+  <div class="max-w-screen-xl px-6">
+    <div class="mb-4 flex items-center justify-between gap-4 md:mb-8">
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Blog categories</h2>
+    </div>
+  </div>
+</div>
+<ul role="list" class="divide-y divide-gray-100">
+  <%= render partial: "category", collection: @categories %>
+  <%= render partial: "new" %>
+</ul>

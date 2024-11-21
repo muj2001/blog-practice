@@ -1,18 +1,22 @@
-<h2><%= @user.name %></h2>
-<%= form_with url: subscription_path(@user), method: :post do %>
-  <%= submit_tag "Subscribe"%>
-<% end %>
-<% if flash[:alert] %>
-  <%= flash[:alert] %>
-<% end %>
-<hr>
-
-<!-- Shift this code into a partial -->
-<% @user.posts.each do |post| %>
-  <h3><%= link_to post.title, post_path(post) %></h3>
-  <hr>
-<% end %>
-<h3>Comments</h3>
-<%= render partial: "comments/comment", collection: @user.comments %>
-<%= render partial: "comments/comment_new", locals: { commentable: @user } %>
-<!-- -->
+  <div class="px-12 pt-12 pb-4 bg-secondary">
+    <div class="flex justify-between items-center">
+      <h2 class="text-white oswald-font text-5xl font-medium"><%= @user.name %></h2>
+      <%= form_with url: subscription_path(@user), method: :post do %>
+        <%= submit_tag "Subscribe", class: "hidden md:block button-primary text-white py-2 px-4 rounded"%>
+        <%= button_tag class: "block md:hidden", type: "submit" do %>
+          <div class="button-primary text-white py-2 px-4 rounded">
+            <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 20">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13 19-6-5-6 5V2a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17Z"></path>
+            </svg>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <% if flash[:alert] %>
+      <%= flash[:alert] %>
+    <% end %>
+    <%= render partial: "posts/post_bar", collection: @user.posts, as: :post %>
+  </div>
+  <%= render partial: "comments/comments", locals: { commentable: @user, comments: @user.comments } %>

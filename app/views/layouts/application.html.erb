@@ -13,6 +13,11 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
@@ -20,7 +25,9 @@
   <body>
     <!-- HEADER -->
     <div>
-      <h1>BLOG</h1>
+      <div class="flex text-6xl justify-center item-center p-6">
+        <h1 class="title-1 oswald-font">BLOG</h1>
+      </div>
       <hr>
       <!-- NAVBAR -->
       <%= render "navbar" %>

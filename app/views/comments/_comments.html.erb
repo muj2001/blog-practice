@@ -1,0 +1,9 @@
+
+  <h3 class="py-6 comments-title text-white oswald-font text-2xl px-12 ">Comments</h3>
+  <div class="px-12 py-4">
+    <%= render partial: "comments/comment", collection: comments %>
+    <% if logged_in? %>
+      <%= render partial: "comments/comment_new", locals: { commentable: commentable } %>
+    <% end %>
+    <!-- -->
+  </div>

@@ -13,3 +13,48 @@
  *= require_tree .
  *= require_self
  */
+
+ :root {
+  --primary-color: #ff1481;
+  --primary-color-hover: #bf0431;
+  --secondary-color: #272727;
+  --secondary-color-hover: #676767;
+ }
+
+ .oswald-font {
+  font-family: "Oswald", sans-serif;
+ }
+
+ .title-1 {
+  font-weight: 900;
+ }
+
+ .button-primary {
+  background-color: var(--primary-color);
+ }
+
+ .button-primary:hover {
+  background-color: var(--primary-color-hover);
+ }
+
+ .comments-title {
+  background-color: var(--primary-color);
+ }
+
+ .comment {
+  background-color: var(--secondary-color);
+ }
+
+ .bg-secondary {
+  background-color: var(--secondary-color);
+ }
+
+ .border-secondary {
+  border-color: var(--secondary-color);
+  border-width: 1px;
+ }
+
+ .bg-secondary:hover {
+  background-color: var(--secondary-color-hover);
+ }
+

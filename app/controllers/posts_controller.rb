@@ -1,6 +1,13 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.all
+    # @posts = Post.all
+    p "#{params[:category_ids]} -----------------------------------------"
+    if params[:category_ids].present?
+      @posts = Post.joins(:categories).where(categories: { id: params[:category_ids] }).distinct
+    else
+      @posts = Post.all
+    end
+    @categories = Category.order(name: :asc)
   end
 
   def new
