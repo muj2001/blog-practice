@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get "sections/create"
-  get "sections/edit"
-  get "sections/update"
-  get "sections/destroy"
   root "public#main"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -24,6 +20,7 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :comments
+    resources :sections, only: [ :create, :edit, :update, :destroy ]
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
