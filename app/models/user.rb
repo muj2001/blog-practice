@@ -13,4 +13,8 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :authored_comments, class_name: "Comment", foreign_key: "commenter_id", dependent: :destroy
   has_many :comments, class_name: "Comment", as: :commentable, dependent: :destroy
+
+  def is_admin?
+    admin
+  end
 end

@@ -4,7 +4,8 @@
 users = User.create!([
   { name: "Alice Smith", email: "alice@example.com", password: "password123" },
   { name: "Bob Jones", email: "bob@example.com", password: "password123" },
-  { name: "Charlie Brown", email: "charlie@example.com", password: "password123" }
+  { name: "Charlie Brown", email: "charlie@example.com", password: "password123" },
+  { name: "Admin", email: "admin@admin.com", password: "admin123", admin: true }
 ])
 
 p "Seeded till Users."

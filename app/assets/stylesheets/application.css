@@ -54,7 +54,11 @@
   border-width: 1px;
  }
 
- .bg-secondary:hover {
+ .button-secondary {
+  background-color: var(--secondary-color);
+ }
+
+ .button-secondary:hover {
   background-color: var(--secondary-color-hover);
  }
 
