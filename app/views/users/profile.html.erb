@@ -1,0 +1,20 @@
+  <div class="px-12 pt-12 pb-4 bg-secondary">
+    <div class="flex justify-between items-center">
+      <h2 class="text-white oswald-font text-5xl font-medium"><%= @user.name %></h2>
+    </div>
+  </div>
+  <div>
+    <%= render partial: "posts/post_bar", collection: @user.posts, as: :post %>
+    <div class="flex justify-between py-12 px-12 items-center">
+      <div class="flex items-center gap-x-3">
+        <%= link_to new_post_path, class: "p-1 button-primary text-white rounded-lg" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-7">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+        <% end %>
+
+        <div class="text-4xl oswald-font font-semibold text-gray-900">Create New Post</div>
+      </div>
+    </div>
+  </div>
+  <%= render partial: "comments/comments", locals: { commentable: @user, comments: @user.comments } %>

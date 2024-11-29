@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "login", to: "sessions#new"
   post "login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy", as: :logout
+  get "/profile", to: "users#profile", as: :profile
 
   # Subscription Route
   post "users/:id/subscribe/", to: "users#sub", as: :subscription

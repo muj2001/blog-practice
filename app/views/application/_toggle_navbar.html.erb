@@ -30,7 +30,7 @@
           </li>
         <% else %>
           <li>
-            <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">My Profile (Link To Add)</div>
+            <%= link_to "My Profile", profile_path, class: "flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" %>
           </li>
           <li>
             <%= link_to "New Post", new_post_path, class: "flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" %>

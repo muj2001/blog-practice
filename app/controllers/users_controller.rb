@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include Authorization
 
-  before_action :authorize_user, only: [ :sub ]
+  before_action :authorize_user, only: [ :sub, :unsub, :profile ]
 
   def index
     @users = User.all
@@ -24,6 +24,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+  end
+
+  def profile
+    @user = User.find(session[:user_id])
   end
 
   def sub

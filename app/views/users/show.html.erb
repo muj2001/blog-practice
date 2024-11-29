@@ -29,6 +29,12 @@
     </div>
   </div>
   <div>
-    <%= render partial: "posts/post_bar", collection: @user.posts, as: :post %>
+    <% if @user.posts.size > 0 %>
+      <%= render partial: "posts/post_bar", collection: @user.posts, as: :post %>
+    <% else %>
+      <div class="flex justify-between gap-x-6 py-12 px-12 items-center">
+        <p class="text-4xl oswald-font font-semibold text-gray-900">No Posts Yet</p>
+      </div>
+    <% end %>
   </div>
   <%= render partial: "comments/comments", locals: { commentable: @user, comments: @user.comments } %>

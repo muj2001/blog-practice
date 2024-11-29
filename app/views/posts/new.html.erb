@@ -1,11 +1,39 @@
-<%= form_with model: @post, method: :post  do |form| %>
-  <div>
-    <h3>
-      <%= form.label :title %>:
-      <%= form.text_field :title %>
-    </h3>
-  </div>
-  <div>
-    </h3>
-  </div>
-<% end %>
+<div class="px-12 pt-12 pb-4 bg-secondary">
+  <%= form_with url: posts_path, method: :post  do |form| %>
+    <div class="flex justify-between items-center">
+        <div class="flex items-center mb-4 gap-x-6">
+          <%= form.text_field :title, class: "rounded-3xl oswald-font text-5xl font-medium", placeholder: "Enter Title" %>
+        </div>
+        <div>
+          <%= button_tag type: "submit", class: "p-1 button-primary text-white rounded-lg" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-10">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+          <% end %>
+        </div>
+    </div>
+    <div class="flex items-center gap-x-2">
+      <h3 class="text-white text-xl">
+        Categories
+      </h3>
+      <button data-collapse-toggle="navbar-hamburger" type="button" class="inline-flex items-center justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-hamburger" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="hidden w-full" id="navbar-hamburger">
+      <ul class="flex flex-wrap gap-x-6 font-medium mt-4 rounded-lg bg-secondary dark:bg-gray-800 dark:border-gray-700">
+        <% @categories.each do |category| %>
+          <div class="flex items-center gap-x-2 text-white">
+            <%= check_box_tag 'category_ids[]', category.id, params[:category_ids]&.include?(category.id.to_s) %>
+            <%= label_tag "category_ids_#{category.id}", category.name %>
+          </div>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+
+
