@@ -21,15 +21,15 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    if session[:user_id]
-      if @post.save
-        redirect_to root_path
-      else
-        redirect_to new_post_path, alert: "Could not create post"
+    @post = Post.new(title: params[:title], user_id: session[:user_id])
+    if @post.save
+      if params[:category_ids].present?
+        category_ids = params[:category_ids].map(&:to_i)
+        @post.categories = Category.find(category_ids)
       end
+      redirect_to edit_post_path(@post), notice: "Post created."
     else
-      redirect_to new_post_path, alert: "You need to login to create a blog post."
+      redirect_to new_post_path, alert: "Could not create post"
     end
   end
 
@@ -38,15 +38,32 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find(params[:id])
+    @categories = Category.all
   end
 
   def update
+    @post = Post.find(params[:id])
+    if params[:category_ids].present?
+      category_ids = params[:category_ids].map(&:to_i)
+      @post.categories = Category.find(category_ids)
+    end
+    unless @post.title == params[:title]
+      @post.title = params[:title]
+      if @post.save
+        redirect_to @post, notice: "Edit successful."
+      else
+        redirect_to edit_post_path(@post), alert: "Edit not successful."
+      end
+    else
+      redirect_to edit_post_path(@post), alert: "Equal Titles?"
+    end
   end
 
   def destroy
   end
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.permit(:title, category_ids: [])
   end
 end

@@ -18,7 +18,8 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to root_path, notice: "User successfully created!"
     else
-      render :new
+      # flash.now[:alert] = "Invalid inputs."
+      redirect_to new_user_path, alert: "Invalid inputs, try again!"
     end
   end
 

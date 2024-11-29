@@ -4,7 +4,7 @@
     </div>
   </div>
   <div>
-    <%= render partial: "posts/post_bar", collection: @user.posts, as: :post %>
+    <%= render partial: "posts/profile_post_bar", collection: @user.posts, as: :post %>
     <div class="flex justify-between py-12 px-12 items-center">
       <div class="flex items-center gap-x-3">
         <%= link_to new_post_path, class: "p-1 button-primary text-white rounded-lg" do %>
