@@ -1,9 +1,11 @@
 <%= render "post" %>
 
-<% @post.sections.each_with_index do |section, index| %>
-  <h3><%= index+1 %>. <%= section.title %></h3>
-  <p><%= section.body %></p>
-<% end %>
+<div>
+  <% @post.sections.each_with_index do |section, index| %>
+    <h3 class="bg-primary px-12 pt-6 pb-2 text-3xl text-white oswald-font"><%= index+1 %>. <%= section.title %></h3>
+    <p class="px-12 py-8"><%= section.body %></p>
+  <% end %>
+</div>
 
 
 <%= render partial: "comments/comments", locals: { commentable: @post, comments: @post.comments } %>

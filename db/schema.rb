@@ -28,13 +28,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_15_142259) do
 
   create_table "comments", force: :cascade do |t|
     t.text "body"
-    t.integer "commenter_id", null: false
+    t.integer "user_id", null: false
     t.string "commentable_type"
     t.integer "commentable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
-    t.index ["commenter_id"], name: "index_comments_on_commenter_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -56,9 +56,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_15_142259) do
 
   create_table "subscriptions", id: false, force: :cascade do |t|
     t.integer "subscriber_id", null: false
-    t.integer "subscribed_id", null: false
-    t.index ["subscribed_id"], name: "index_subscriptions_on_subscribed_id"
+    t.integer "user_id", null: false
     t.index ["subscriber_id"], name: "index_subscriptions_on_subscriber_id"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -73,9 +73,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_15_142259) do
 
   add_foreign_key "categories_posts", "categories"
   add_foreign_key "categories_posts", "posts"
-  add_foreign_key "comments", "users", column: "commenter_id"
+  add_foreign_key "comments", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "sections", "posts"
-  add_foreign_key "subscriptions", "users", column: "subscribed_id"
   add_foreign_key "subscriptions", "users", column: "subscriber_id"
 end

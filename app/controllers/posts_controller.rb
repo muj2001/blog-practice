@@ -1,4 +1,9 @@
 class PostsController < ApplicationController
+  include Authorization
+
+  before_action :authorize_user
+  skip_before_action :authorize_user, only: [ :index, :show ]
+
   def index
     # @posts = Post.all
     p "#{params[:category_ids]} -----------------------------------------"

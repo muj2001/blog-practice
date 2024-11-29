@@ -62,22 +62,22 @@ p "Seeded till categories and posts"
 comments = Comment.create!([
   {
     body: "Great insights! I can't wait to see what the future holds.",
-    commenter: users.second,
+    user: users.second,
     commentable: posts.first
   },
   {
     body: "This is very informative. Thanks for sharing!",
-    commenter: users.third,
+    user: users.third,
     commentable: posts.first
   },
   {
     body: "I agree with this point, especially about the importance of health.",
-    commenter: users.first,
+    user: users.first,
     commentable: posts.second
   },
   {
     body: "I love this blogger's posts.",
-    commenter: users.first,
+    user: users.first,
     commentable: users.second
   }
 ])

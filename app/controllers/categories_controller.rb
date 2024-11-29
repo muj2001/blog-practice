@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   include Authorization
 
-  before_action :authorize_create, only: [ :create ]
+  before_action :authorize_admin, only: [ :new, :create, :update, :destroy, :edit ]
 
   def index
     @categories = Category.all
@@ -32,6 +32,11 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
+    @category = Category.find(params[:id])
+    name = @category.name
+    if @category.destroy
+      redirect_to categories_path, alert: "Category \'#{name}\' deleted"
+    end
   end
 
   private

@@ -1,11 +1,13 @@
 class CommentsController < ApplicationController
+  include Authorization
+
   before_action :set_commentable
+  before_action :authorize_user, only: [ :create, :destroy ]
 
   def create
     if session[:user_id]
       @comment = @commentable.comments.build(comment_params)
-      @comment.commenter_id = session[:user_id]
-      p "-----------Comment-----------"
+      @comment.user_id = session[:user_id]
       p @comment
       if @comment.save
         redirect_to @commentable
@@ -15,18 +17,15 @@ class CommentsController < ApplicationController
     else
         redirect_to login_path, alert: "You need to login to be able to comment."
     end
-    #     @post = Post.find(params[:post_id])
-    #     if session[:user_id]
-    #       @comment = @post.comments.build(body: comment_params[:comment_body])
-    #       @comment.commenter_id = session[:user_id]
-    #       if @comment.save
-    #         redirect_to post_path(@post)
-    #       else
-    #         redirect_to post_path(@post), alert: "Could not post comment!"
-    #       end
-    #     else
-    #       redirect_to post_path(@post), alert: "You need to login to be able to comment."
-    #     end
+  end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+    if @comment.destroy
+      redirect_to @commentable, notice: "Comment deleted."
+    else
+      redirect_to @commentable, alert: "Could not delete comment!"
+    end
   end
 
   def set_commentable

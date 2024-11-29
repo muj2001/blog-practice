@@ -11,3 +11,9 @@
 }
 
 */
+
+@layer utilities {
+  .background-primary {
+    background-color: #ff1481;
+  }
+}

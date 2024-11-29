@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   # Subscription Route
   post "users/:id/subscribe/", to: "users#sub", as: :subscription
+  delete "users/:id/unsubscribe/", to: "users#unsub", as: :unsubscription
 
   # Routes for posts, categories, and comments
   resources :categories

@@ -1,12 +1,18 @@
-<h2><%= @post.title %></h2>
-<h3>
-  Categories:
-  <% @post.categories.each_with_index do |category, index| %>
-    <% if index == @post.categories.size - 1 %>
-      <%= category.name %>
-    <% else %>
-      <%= category.name %>,
-    <% end %>
-  <% end %>
-</h3>
+<div class="px-12 pt-12 pb-4 bg-secondary">
+  <div class="flex justify-between items-center">
+    <h2 class="text-white oswald-font text-5xl font-medium mb-4"><%= @post.title %></h2>
+  </div>
+  <div>
+    <h3 class="text-white">
+      Categories:
+      <% @post.categories.each_with_index do |category, index| %>
+        <% if index == @post.categories.size - 1 %>
+          <%= category.name %>
+        <% else %>
+          <%= category.name %>,
+        <% end %>
+      <% end %>
+    </h3>
+  </div>
+</div>
 

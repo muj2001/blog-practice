@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_and_belongs_to_many :subscribers, class_name: "User", join_table: "subscriptions", foreign_key: "subscriber_id"
-  has_and_belongs_to_many :subscribes, class_name: "User", join_table: "subscriptions", foreign_key: "subscribed_id"
+  has_and_belongs_to_many :users, class_name: "User", join_table: "subscriptions", foreign_key: "user_id"
 
   has_many :posts, dependent: :destroy
   has_many :authored_comments, class_name: "Comment", foreign_key: "commenter_id", dependent: :destroy

@@ -1,7 +1,12 @@
 <li class="flex justify-between gap-x-6 py-5 px-6">
-  <div class="flex min-w-0 gap-x-4">
-    <div class="min-w-0 flex-auto">
+  <div class="flex flex-1 min-w-0 gap-x-4">
+    <div class="min-w-0 flex justify-between flex-1 items-center">
       <p class="text-sm/12 font-semibold text-gray-900"><%= link_to category.name, category_path(category) %></p>
+      <% if is_admin_helper? %>
+        <%= form_with url: category_path(category), method: :delete do %>
+          <%= submit_tag "Delete", class: "button-primary text-white py-2 px-4 rounded" %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </li>
