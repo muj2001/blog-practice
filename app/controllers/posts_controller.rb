@@ -17,17 +17,31 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @post.sections.build
     @categories = Category.all
   end
 
   def create
-    @post = Post.new(title: params[:title], user_id: session[:user_id])
+    @post = Post.new(title: post_params[:title], user_id: session[:user_id])
     if @post.save
-      if params[:category_ids].present?
-        category_ids = params[:category_ids].map(&:to_i)
+      if post_params[:category_ids].present?
+        category_ids = post_params[:category_ids].map(&:to_i)
         @post.categories = Category.find(category_ids)
       end
-      redirect_to edit_post_path(@post), notice: "Post created."
+      p "HERE 1 --------------------------------------------"
+      if post_params[:sections].present?
+        p "HERE 2 ------------------------------------------"
+        p post_params
+        p post_params[:sections]
+        post_params[:sections].each do |section_params|
+          p "Section Params"
+          p section_params[:title]
+          p section_params[:body]
+          @post.sections.create(title: section_params[:title], body: section_params[:body])
+        end
+      end
+
+      redirect_to @post, notice: "Post created."
     else
       redirect_to new_post_path, alert: "Could not create post"
     end
@@ -44,26 +58,43 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    if params[:category_ids].present?
-      category_ids = params[:category_ids].map(&:to_i)
+
+    # Update categories if provided
+    if post_params[:category_ids].present?
+      category_ids = post_params[:category_ids].map(&:to_i)
       @post.categories = Category.find(category_ids)
     end
-    unless @post.title == params[:title]
-      @post.title = params[:title]
-      if @post.save
-        redirect_to @post, notice: "Edit successful."
-      else
-        redirect_to edit_post_path(@post), alert: "Edit not successful."
+
+    # Update the title and sections
+    if post_params[:sections_attributes].present?
+      post_params[:sections_attributes].each do |index, section_params|
+        if section_params[:_destroy] == "1"
+          section = @post.sections.find_by(id: section_params[:id])
+          section&.destroy if section
+        else
+          section = @post.sections.find_or_initialize_by(id: section_params[:id])
+          section.update(section_params.except(:_destroy))
+        end
       end
+    end
+    @post.assign_attributes(post_params.except(:sections_attributes, :category_ids))
+    # unless post_params[:sections_attributes]
+    #   @post.sections.destroy_all
+    # end
+
+    if @post.save
+      redirect_to @post, notice: "Edit successful."
     else
-      redirect_to edit_post_path(@post), alert: "Equal Titles?"
+      redirect_to edit_post_path(@post), alert: "Edit not successful."
     end
   end
+
+
 
   def destroy
   end
 
   def post_params
-    params.permit(:title, category_ids: [])
+    params.require(:post).permit(:title, category_ids: [], sections_attributes: [ :id, :title, :body, :_destroy ])
   end
 end

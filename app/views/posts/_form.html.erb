@@ -1,0 +1,100 @@
+<%= form_with model: post, local: true do |form| %>
+  <div class="px-12 pt-12 pb-4 bg-secondary mb-6">
+    <div class="flex justify-between items-center">
+      <div class="flex items-center mb-4 gap-x-6">
+        <%= form.text_field :title, class: "rounded-3xl oswald-font text-5xl font-medium", placeholder: "Enter Title" %>
+      </div>
+      <div>
+        <%= button_tag type: "submit", class: "p-1 button-primary text-white rounded-lg" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-10">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-x-2">
+      <h3 class="text-white text-xl">Categories</h3>
+      <button data-collapse-toggle="navbar-hamburger" type="button" class="inline-flex items-center justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-hamburger" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="hidden w-full" id="navbar-hamburger">
+      <ul class="flex flex-wrap gap-x-6 font-medium mt-4 rounded-lg bg-secondary dark:bg-gray-800 dark:border-gray-700">
+        <% @categories.each do |category| %>
+          <div class="flex items-center gap-x-2 text-white">
+            <%= check_box_tag 'category_ids[]', category.id, post.category_ids.include?(category.id) %>
+            <%= label_tag "category_ids_#{category.id}", category.name %>
+          </div>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div data-controller="sections">
+    <!-- Sections Container -->
+    <div id="sections" data-sections-target="container">
+      <% post.sections.each do |section| %>
+        <div class="nested-fields flex flex-col">
+          <%= form.fields_for :sections, section do |section_form|%>
+            <div class="px-12 pb-2 flex justify-between">
+              <%= section_form.text_field :title, value: section.title, placeholder: "Section Title" %>
+              <% if action_name == "new" %>
+                <button class="remove-section button-secondary p-2" data-action="sections#remove">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              <% elsif action_name == "edit" %>
+                <div class="flex items-center gap-x-1">
+                  <%= section_form.check_box :_destroy, { class: "remove-section" }, "1", "0" %>
+                  <%= section_form.label :_destroy, "Remove" %>
+                </div>
+              <% end %>
+            </div>
+            <div class="self-stretch flex px-12" data-controller="character-counter">
+              <%= section_form.text_area :body, value: section.body, placeholder: "Section Body", class: "flex-1 min-h-96", data: { "character-counter-target": "input", "character-counter-max-length": 11500 } %>
+            </div>
+            <p class="px-12 text-right text-sm text-gray-500" data-character-counter-target="counter">0 / 11500</p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Add Section Button -->
+    <button class="px-12 gap-x-1 mt-4 mb-16 flex items-center" id="add-section" data-action="sections#add">
+      <div class="button-primary text-white rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+      </div>
+      <div class="text-lg">
+        Add Section
+      </div>
+    </button>
+
+    <!-- Hidden Template -->
+    <template id="new-section-template" data-sections-target="template">
+      <div class="nested-fields flex flex-col mt-8">
+        <%= form.fields_for :sections, Section.new do |section_form|%>
+          <div class="px-12 pb-2 flex justify-between">
+            <%= section_form.text_field :title, placeholder: "Section Title" %>
+            <button class="remove-section button-secondary p-2" data-action="sections#remove">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div class="self-stretch flex px-12" data-controller="character-counter">
+            <%= section_form.text_area :body, placeholder: "Section Body", class: "flex-1 min-h-96", data: { "character-counter-target": "input", "character-counter-max-length": 11500 } %>
+          </div>
+          <p class="px-12 text-right text-sm text-gray-500" data-character-counter-target="counter">0 / 11500</p>
+          <%= section_form.hidden_field :_destroy, value: "0" %>
+        <% end %>
+      </div>
+    </template>
+  </div>
+<% end %>

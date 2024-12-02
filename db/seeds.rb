@@ -43,8 +43,8 @@ posts = Post.create!([
     title: "Top Travel Destinations for 2024",
     user: users.third,
     sections: [
-      Section.new(title: "Europe", body: "Europe has a rich history and beautiful landscapes."),
-      Section.new(title: "Asia", body: "Asia offers diverse cultures and experiences.")
+      Section.new(title: "Continent: Europe", body: "Europe has a rich history and beautiful landscapes."),
+      Section.new(title: "Continent: Asia", body: "Asia offers diverse cultures and experiences.")
     ]
   }
 ])
