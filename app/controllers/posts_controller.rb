@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   include Authorization
 
   before_action :authorize_user
+  # before_action :authorize_user_specific, only: [ :destroy ]
   skip_before_action :authorize_user, only: [ :index, :show ]
 
   def index
@@ -29,14 +30,14 @@ class PostsController < ApplicationController
         @post.categories = Category.find(category_ids)
       end
       p "HERE 1 --------------------------------------------"
-      if post_params[:sections].present?
+      if post_params[:sections_attributes].present?
         p "HERE 2 ------------------------------------------"
         p post_params
-        p post_params[:sections]
-        post_params[:sections].each do |section_params|
+        p post_params[:sections_attributes]
+        post_params[:sections_attributes].each do |index, section_params|
           p "Section Params"
-          p section_params[:title]
-          p section_params[:body]
+          p section_params
+          # p section_params[:body]
           @post.sections.create(title: section_params[:title], body: section_params[:body])
         end
       end
@@ -89,9 +90,16 @@ class PostsController < ApplicationController
     end
   end
 
-
-
   def destroy
+    p "DELETING ----------------------------"
+    @post = Post.find(params[:id])
+    if @post.destroy
+      p "DELETED -------------------------------------"
+      redirect_to profile_path, notice: "Post deleted."
+    else
+      p "FAILED ---------------------------------"
+      redirect_to @post, alert: "Could not delete post."
+    end
   end
 
   def post_params

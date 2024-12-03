@@ -88,3 +88,7 @@
 .bg-tertiary {
   background-color: var(--tertiary-color);
 }
+
+.danger-color {
+  color: rgb(255, 94, 94);
+}

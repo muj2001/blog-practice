@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+  <style>
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center
+    }
+
+    .oswald-font {
+      font-family: "Oswald", sans-serif;
+      font-weight: 900;
+    }
+
+    .button {
+      background-color: #ff1481;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      border: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 class="oswald-font">IdeaSphere</h1>
+  </div>
+  <hr>
+  <h2 class="oswald-font">Hello <%= @subscriber.name %>,</h2>
+  <p><strong><%= @user.name %></strong> has created a new post titled "<%= @post.title %>".</p>
+  <form action="<%= post_url(@post) %>">
+    <input class="button" type="submit" value="Go to Post" />
+  </form>
+  <hr>
+</body>
+</html>
+
+
+<!-- <h1>Hello <%= @subscriber.name %>,</h1>
+
+<p><strong><%= @user.name %></strong> has created a new post titled "<%= @post.title %>".</p>
+
+<p>
+  <a href="<%= post_url(@post) %>">Check it out here</a>.
+</p>
+
+<p>Best regards,</p>
+<p>The Team</p> -->

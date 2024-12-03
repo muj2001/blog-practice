@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy", as: :logout
   get "/profile", to: "users#profile", as: :profile
 
+  # get "/subscription_view", as: :sub_mailer
+
   # Subscription Route
   post "users/:id/subscribe/", to: "users#sub", as: :subscription
   delete "users/:id/unsubscribe/", to: "users#unsub", as: :unsubscription

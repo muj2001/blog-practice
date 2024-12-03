@@ -5,12 +5,16 @@
   <div>
     <h3 class="text-white">
       Categories:
-      <% @post.categories.each_with_index do |category, index| %>
-        <% if index == @post.categories.size - 1 %>
-          <%= category.name %>
-        <% else %>
-          <%= category.name %>,
+      <% if @post.categories.size > 0 %>
+        <% @post.categories.each_with_index do |category, index| %>
+          <% if index == @post.categories.size - 1 %>
+            <%= category.name %>
+          <% else %>
+            <%= category.name %>,
+          <% end %>
         <% end %>
+      <% else %>
+        Other
       <% end %>
     </h3>
   </div>
